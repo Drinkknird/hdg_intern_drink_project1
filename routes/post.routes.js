@@ -8,5 +8,6 @@ router.get('/', postController.getAllPosts);
 router.get('/:id', postController.getPostById);
 router.put('/:id', postController.updatePost);
 router.delete('/:id', postController.deletePost);
+router.delete('/', postController.deleteAllPosts); // เพิ่มเส้นทาง delete ทั้งหมด
 
 module.exports = router;

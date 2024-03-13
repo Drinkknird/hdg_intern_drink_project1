@@ -1,20 +1,22 @@
-// app.js
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose'); // เรียกใช้งาน mongoose โดยตรง
+const mongoose = require('mongoose');
 
 app.use(express.json());
 
-app.use('/api/posts', require('./routes/post.routes'));
+const postRoutes = require('./routes/post.routes');
 
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.use('/api/posts', postRoutes);
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+app.listen(port, hostname, () => {
+    console.log(`Server running at http://${hostname}:${port}/`);
 });
 
+const MONGO_URI = 'mongodb+srv://drink179531:5AK2vKnUEeqqhANW@cluster0.tdth1os.mongodb.net/myDatabase';
 
-const MONGO_URI = 'mongodb+srv://drink179531:5AK2vKnUEeqqhANW@cluster0.tdth1os.mongodb.net/myDatabase'; // เพิ่มชื่อฐานข้อมูล myDatabase ต่อท้าย URI
-
-mongoose.connect(MONGO_URI)
-    .then(() => console.log('เชื่อมต่อ MongoDB สำเร็จ'))
-    .catch(err => console.error('เกิดข้อผิดพลาดในการเชื่อมต่อ MongoDB:', err));
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('Failed to connect to MongoDB:', err));
