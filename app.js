@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+require('dotenv').config()
 
 app.use(express.json());
 
@@ -8,8 +9,9 @@ const postRoutes = require('./routes/post.routes');
 
 app.use('/api/posts', postRoutes);
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const hostname = process.env.hostname;
+const port = process.env.port;
+
 
 
 app.use(require('body-parser').json());
@@ -25,7 +27,7 @@ app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
 
-const MONGO_URI = 'mongodb+srv://drink179531:5AK2vKnUEeqqhANW@cluster0.tdth1os.mongodb.net/myDatabase';
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
