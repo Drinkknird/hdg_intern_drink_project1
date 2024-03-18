@@ -12,6 +12,7 @@ app.use('/api/posts', postRoutes);
 const hostname = process.env.hostname;
 const port = process.env.port;
 
+//testIgnore
 
 
 app.use(require('body-parser').json());
