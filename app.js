@@ -15,6 +15,7 @@ const port = 3000;
 app.use(require('body-parser').json());
 app.use(require('cors')());
 
+app.use('/api/auths', require('./routes/auth.routes'));
 app.use('/api/orders', require('./routes/order.routes'));
 app.use('/api/products', require('./routes/product.routes'));
 app.use('/api/users', require('./routes/user.routes'));

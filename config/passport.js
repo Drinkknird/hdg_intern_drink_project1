@@ -1,20 +1,20 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../models/User'); // Replace with your User model path
+const User = require('../models/user.model');
 
 passport.use(new LocalStrategy({
-    usernameField: 'email', // Use email for login
-    passwordField: 'password'
+    usernameField: 'email',
+    passwordField: 'password',
 }, async (email, password, done) => {
     try {
-        const user = await User.findOne({ email: email.toLowerCase() }); // Find user by email (case-insensitive)
+        const user = await User.findOne({ email });
         if (!user) {
-            return done(null, false, { message: 'Incorrect username or password' });
+            return done(null, false, { message: 'Incorrect email or password' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return done(null, false, { message: 'Incorrect username or password' });
+            return done(null, false, { message: 'Incorrect email or password' });
         }
 
         // User authenticated, pass the user object
@@ -26,7 +26,7 @@ passport.use(new LocalStrategy({
 
 // Serialize and deserialize user for session management
 passport.serializeUser((user, done) => {
-    done(null, user._id); // Store user ID in the session
+    done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
