@@ -7,7 +7,7 @@ app.use(express.json());
 
 const postRoutes = require('./routes/post.routes');
 
-app.use('/api/posts', postRoutes);
+app.use('/api', postRoutes);
 
 const hostname = process.env.hostname;
 const port = process.env.port;
